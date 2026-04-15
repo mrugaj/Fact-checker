@@ -1,9 +1,11 @@
 import groq
-GROQ_API_KEY = "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"
+from django.conf import settings
 
-# Initialize the Groq client
-client = groq.Client(api_key=GROQ_API_KEY)
-  # send_query_to_api(input_query, response_text)
+if not settings.GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY is not set. Check your .env file.")
+
+# Initialize the Groq client using Django settings
+client = groq.Client(api_key=settings.GROQ_API_KEY)
 
 def process_query(query, response_text):
     """
